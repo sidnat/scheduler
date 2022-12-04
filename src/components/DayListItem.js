@@ -5,12 +5,10 @@ import "components/DayListItem.scss";
 export default function DayListItem(props) {
   const buttonClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
-    "button--danger": props.spots === 0
+    "day-list__item--full": !props.spots
   });
 
   const formatSpots = (spots) => {
-    let formattedSpot = `${spots} spots remaining`;
-
     if (spots === 0) {
       return 'no spots remaining';
     }
@@ -19,7 +17,7 @@ export default function DayListItem(props) {
       return '1 spot remaining';
     }
 
-    return formattedSpot;
+    return `${spots} spots remaining`;
   };
 
   return (
