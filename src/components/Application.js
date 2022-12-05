@@ -51,11 +51,10 @@ export default function Application(props) {
   useEffect(() => {
     const testURL = `http://localhost:8001/api/days`;
     axios.get(testURL).then(response => {
-      console.log(testURL)
       console.log(response.data);
       setDays([...response.data]);
     });
-  }, [days]);
+  }, []);
 
   const schedule = Object.values(appointments).map(appointment => {
     return (
