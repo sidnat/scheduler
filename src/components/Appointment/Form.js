@@ -7,18 +7,18 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   const reset = () => {
-    setStudent("")
-    setInterviewer(null)
-  }
+    setStudent("");
+    setInterviewer(null);
+  };
 
   const cancel = () => {
-    reset()
-    props.onCancel()
-  }
+    reset();
+    props.onCancel();
+  };
 
   const submitForm = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   return (
     <main className="appointment__card appointment__card--create">

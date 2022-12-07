@@ -10,7 +10,7 @@ export default function useVisualMode(initial) {
     } else {
       setHistory([...history, newMode]);
     }
-    
+
     setMode(newMode);
   }
 

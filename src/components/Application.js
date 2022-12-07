@@ -14,7 +14,7 @@ export default function Application(props) {
     interviewers: {}
   });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const dailyInterviewers = getInterviewersForDay(state, state.day)
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviewers = {dailyInterviewers}
+        interviewers={dailyInterviewers}
       />
     );
   });
