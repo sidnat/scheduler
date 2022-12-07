@@ -19,10 +19,14 @@ export function getInterviewersForDay(state, day) {
     return [];
   }
 
-  const arr = scheduleDay.appointments.map(appt => {
-    const interviewerID = state.appointments[appt].interview?.interviewer;
-    return state.interviewers[interviewerID];
-  });
+  const arr = []
+
+  for (let i = 0; i < scheduleDay.appointments.length; i++) {
+    if (state.appointments[scheduleDay.appointments[i]].interview) {
+    const interviewerID = state.appointments[scheduleDay.appointments[i]].interview.interviewer;
+    arr.push(state.interviewers[interviewerID]);
+    }
+  }
 
   return arr;
 }
