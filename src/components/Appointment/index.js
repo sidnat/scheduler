@@ -7,6 +7,7 @@ import useVisualMode from 'hooks/useVisualMode';
 import "./styles.scss";
 import Status from './Status';
 import Confirm from './Confirm';
+import Error from './Error';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -15,6 +16,8 @@ const SAVING = "SAVING";
 const CONFIRM = 'CONFIRM';
 const DELETING = 'DELETING';
 const EDIT = "EDIT";
+const ERROR_SAVE = 'ERROR_SAVE';
+const ERROR_DELETE = 'ERROR_DELETE';
 
 export default function Appointment(props) {
   const {
@@ -23,7 +26,7 @@ export default function Appointment(props) {
     interview,
     interviewers,
     bookInterview,
-    // cancelInterview
+    cancelInterview
   } = props;
 
   const { mode, transition, back } = useVisualMode(
@@ -42,23 +45,24 @@ export default function Appointment(props) {
       return;
     }
 
-    transition(SAVING);
     const interview = {
       student: name,
       interviewer
     };
 
+    transition(SAVING);
+
     bookInterview(id, interview)
-      .then(() => {
-        transition(SHOW);
-      });
+      .then(() => transition(SHOW))
+      .catch(error => transition(ERROR_SAVE, true));
   }
 
-  function cancelInterview(id) {
-    transition(DELETING);
-    props.cancelInterview(id)
-      .then(() => { transition(EMPTY); });
-    // .then(() => { transition(DELETING); });
+  function destroy(id) {
+    transition(DELETING, true);
+
+    cancelInterview(id)
+      .then(() => { transition(EMPTY); })
+      .catch(error => transition(ERROR_DELETE, true));
   };
 
   return (
@@ -83,7 +87,7 @@ export default function Appointment(props) {
       {mode === CONFIRM && <Confirm
         message='Delete the appointment?'
         onCancel={() => back()}
-        onConfirm={() => cancelInterview(id)}
+        onConfirm={() => destroy(id)}
       />}
       {mode === DELETING && <Status message='Deleting' />}
       {mode === EDIT && <Form
@@ -92,6 +96,14 @@ export default function Appointment(props) {
         onSave={save}
         student={interview.student}
         interviewer={interview.interviewer.name}
+      />}
+      {mode === ERROR_SAVE && <Error
+        message='Could not save appointment'
+        onClose={() => transition(EMPTY)}
+      />}
+      {mode === ERROR_DELETE && <Error
+        message='Could not delete appointment'
+        onClose={() => transition(SHOW)}
       />}
     </article>
   );
