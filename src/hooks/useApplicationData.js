@@ -9,6 +9,16 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
+  const updateSpots = function(state, appointments, id) {
+    const foundDay = state.days.find(d => d.appointments.includes(id));
+  
+    const spots = foundDay.appointments.filter(apptID => appointments[apptID].interview === null).length;
+  
+    const updatedDays = state.days.map(d => d.name === foundDay.name ? { ...foundDay, spots } : d);
+  
+    return updatedDays;
+  };
+
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
@@ -33,7 +43,7 @@ export default function useApplicationData() {
             ...state.appointments,
             [id]: appointment
           };
-          setState({ ...state, appointments });
+          setState({ ...state, appointments, days: updateSpots(state, appointments, id) });
         }
       });
   }
@@ -50,7 +60,7 @@ export default function useApplicationData() {
           ...state.appointments,
           [id]: appointment
         };
-        setState({ ...state, appointments });
+        setState({ ...state, appointments, days:updateSpots(state, appointments, id) });
       });
   }
 

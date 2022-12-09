@@ -7,7 +7,7 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../h
 
 import useApplicationData from "hooks/useApplicationData";
 
-export default function Application(props) {
+export default function Application() {
   const {
     state,
     setDay,
@@ -57,6 +57,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
+        <Appointment time="5pm"/>
       </section>
     </main>
   );
