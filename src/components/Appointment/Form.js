@@ -48,9 +48,3 @@ export default function Form(props) {
     </main>
   );
 }
-
-// student:String
-// interviewer:Number
-// interviewers:Array
-// onSave:Function
-// onCancel:Function
