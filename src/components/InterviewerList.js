@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 function InterviewerList(props) {
   const interviewers = props.interviewers.map(interviewer => {
+    if (interviewer)
     return (
       <InterviewerListItem
         key={interviewer.id}

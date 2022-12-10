@@ -28,28 +28,17 @@ export default function Appointment(props) {
     bookInterview,
     cancelInterview
   } = props;
-
+  
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
   function save(name, interviewer) {
-    if (!name && !interviewer) {
-      alert('Please fill out the information before saving');
-      return;
-    } else if (!name) {
-      alert('Please enter student name');
-      return;
-    } else if (!interviewer) {
-      alert('Please select interviewer');
-      return;
-    }
-
     const interview = {
       student: name,
       interviewer
     };
-
+    
     transition(SAVING);
 
     bookInterview(id, interview)
@@ -95,7 +84,7 @@ export default function Appointment(props) {
         onCancel={() => back()}
         onSave={save}
         student={interview.student}
-        interviewer={interview.interviewer.name}
+        interviewer={interview?.interviewer?.name}
       />}
       {mode === ERROR_SAVE && <Error
         message='Could not save appointment'

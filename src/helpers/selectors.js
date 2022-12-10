@@ -19,12 +19,23 @@ export function getInterviewersForDay(state, day) {
     return [];
   }
 
-  const arr = []
+  const arr = [];
 
-  for (let i = 0; i < scheduleDay.appointments.length; i++) {
+  for (let i = 1; i < scheduleDay.appointments.length; i++) {
     if (state.appointments[scheduleDay.appointments[i]].interview) {
-    const interviewerID = state.appointments[scheduleDay.appointments[i]].interview.interviewer;
-    arr.push(state.interviewers[interviewerID]);
+      const interviewerID = state.appointments[scheduleDay.appointments[i]].interview.interviewer;
+
+      let alreadyExists = false;
+
+      for (let elem of arr) {
+        if (elem && elem.id === interviewerID) {
+          alreadyExists = true;
+        }
+      }
+
+      if (alreadyExists === false) {
+        arr.push(state.interviewers[interviewerID]);
+      }
     }
   }
 

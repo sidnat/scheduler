@@ -51,7 +51,6 @@ export default function useApplicationData() {
   async function cancelInterview(id) {
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then((response) => {
-        console.log("test");
         const appointment = {
           ...state.appointments[id],
           interview: null
