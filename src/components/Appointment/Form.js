@@ -39,6 +39,7 @@ export default function Form(props) {
       interviewerID = interviewer
     }
     
+    setError("");
     props.onSave(student, interviewerID);
   }
 
