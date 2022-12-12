@@ -53,6 +53,7 @@ const fixtures = {
   }
 };
 
+//Include put in the axios mock so that the tests will pass when triggering the save operation?
 export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
