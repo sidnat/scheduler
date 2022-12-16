@@ -146,12 +146,12 @@ storiesOf("Appointment", module)
     backgrounds: [{ name: "white", value: "#fff", default: true }]
   })
   .add("Appointment", () => <Appointment />)
-  .add("Appointment with Time", () => <Appointment time="12pm" />)
-  .add("Header", () => <Header time="12pm" />)
+  .add("Appointment with Time", () => <Appointment time={"12pm"} />)
+  .add("Header", () => <Header time={"12pm"} />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
   .add("Show", () => (
     <Show
-      student="Lydia Miller-Jones"
+      student={"Lydia Miller-Jones"}
       interviewer={interviewer}
       onEdit={action("onEdit")}
       onDelete={action("onDelete")}
@@ -159,15 +159,15 @@ storiesOf("Appointment", module)
   ))
   .add("Confirm", () => (
     <Confirm
-      message="Delete the appointment?"
+      message={"Delete the appointment?"}
       onConfirm={action("onConfirm")}
       onCancel={action("onCancel")}
     />
   ))
-  .add("Status", () => <Status message="Deleting" />)
+  .add("Status", () => <Status message={"Deleting"} />)
   .add("Error", () => (
     <Error
-      message="Could not delete appointment."
+      message={"Could not delete appointment."}
       onClose={action("onClose")}
     />
   ))
@@ -189,17 +189,17 @@ storiesOf("Appointment", module)
   ))
   .add("Appointment Empty", () => (
     <Fragment>
-      <Appointment id={1} time="4pm" />
-      <Appointment time="5pm" />
+      <Appointment id={1} time={"4pm"} />
+      <Appointment time={"5pm"} />
     </Fragment>
   ))
   .add("Appointment Booked", () => (
     <Fragment>
       <Appointment
         id={1}
-        time="4pm"
+        time={"4pm"}
         interview={{ student: "Lydia Miller-Jones", interviewer }}
       />
-      <Appointment time="5pm" />
+      <Appointment time={"5pm"} />
     </Fragment>
   ));
