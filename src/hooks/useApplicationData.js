@@ -9,59 +9,73 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-  const updateSpots = function(state, appointments, id) {
-    const foundDay = state.days.find(d => d.appointments.includes(id));
-  
-    const spots = foundDay.appointments.filter(apptID => appointments[apptID].interview === null).length;
-  
-    const updatedDays = state.days.map(d => d.name === foundDay.name ? { ...foundDay, spots } : d);
-  
-    return updatedDays;
-  };
-
-  const setDay = day => setState({ ...state, day });
-
   useEffect(() => {
     Promise.all([
-      axios.get('http://localhost:8001/api/days'),
-      axios.get('http://localhost:8001/api/appointments'),
-      axios.get('http://localhost:8001/api/interviewers')
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ]).then((all) => {
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
 
-  async function bookInterview(id, interview) {
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
-      .then((response) => {
-        if (response.status === 204) {
-          const appointment = {
-            ...state.appointments[id],
-            interview: { ...interview }
-          };
-          const appointments = {
-            ...state.appointments,
-            [id]: appointment
-          };
-          setState({ ...state, appointments, days: updateSpots(state, appointments, id) });
-        }
-      });
-  }
+  const setDay = day => setState({ ...state, day });
 
-  async function cancelInterview(id) {
-    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
-      .then((response) => {
-        const appointment = {
-          ...state.appointments[id],
-          interview: null
-        };
-        const appointments = {
-          ...state.appointments,
-          [id]: appointment
-        };
-        setState({ ...state, appointments, days:updateSpots(state, appointments, id) });
+  const updateSpots = function(state, appointments) {
+    const foundDay = state.days.find(elem => elem.name === state.day);
+
+    let spots = 0;
+
+    for (let id of foundDay.appointments) {
+      const appointment = appointments[id];
+
+      if (appointment.interview === null) {
+        spots++;
+      }
+    };
+
+    const updatedDays = state.days.map(elem => elem.name === state.day ? { ...foundDay, spots } : elem);
+
+    return updatedDays;
+  };
+
+  const bookInterview = function(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    const days = updateSpots(state, appointments);
+
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => {
+        setState({ ...state, appointments, days });
       });
-  }
+  };
+
+  const cancelInterview = function(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    const days = updateSpots(state, appointments);
+
+    return axios.delete(`/api/appointments/${id}`)
+      .then(() => {
+        setState({ ...state, appointments, days });
+      });
+  };
 
   return { state, setDay, bookInterview, cancelInterview };
-}
+};

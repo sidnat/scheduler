@@ -6,19 +6,29 @@ export default function useVisualMode(initial) {
 
   function transition(newMode, replace = false) {
     if (replace) {
-      setHistory([...history.slice(0, -1), newMode]);
+      setHistory((prev) => {
+        const newHistory = [...prev];
+        newHistory.pop();
+        newHistory.push(newMode);
+        return newHistory;
+      });
     } else {
-      setHistory([...history, newMode]);
+      setHistory((prev) => ([...prev, newMode]));
     }
 
     setMode(newMode);
   }
 
   function back() {
-    if (history.length > 1) {
-      setMode(history[history.length - 2]);
-      setHistory(history.slice(0, -1));
+    if (history.length < 2) {
+      return;
     }
+
+    setHistory(prev => {
+      prev.pop();
+      setMode(prev[prev.length - 1]);
+      return prev;
+    });
   }
 
   return { mode, transition, back };
