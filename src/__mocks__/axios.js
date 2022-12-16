@@ -53,7 +53,6 @@ const fixtures = {
   }
 };
 
-//Include put in the axios mock so that the tests will pass when triggering the save operation?
 export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
@@ -80,5 +79,19 @@ export default {
         data: fixtures.interviewers
       });
     }
+  }),
+
+  put: jest.fn(() => {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
+  }),
+
+  delete: jest.fn(() => {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
   })
 };
