@@ -1,18 +1,25 @@
 import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss";
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 
 function InterviewerList(props) {
-  const interviewers = props.interviewers.map(interviewer => {
-    if (interviewer)
+  const {
+    interviewers,
+    value,
+    onChange
+  } = props;
+
+  const interviewerList = interviewers.map(interviewer => {
+    const id = interviewer.id;
+
     return (
       <InterviewerListItem
-        key={interviewer.id}
+        key={id}
         name={interviewer.name}
         avatar={interviewer.avatar}
-        selected={interviewer.id === props.value}
-        setInterviewer={() => props.onChange(interviewer.id)}
+        selected={id === value}
+        setInterviewer={() => onChange(id)}
       />
     );
   });
@@ -20,7 +27,7 @@ function InterviewerList(props) {
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
-      <ul className="interviewers__list">{interviewers}</ul>
+      <ul className="interviewers__list">{interviewerList}</ul>
     </section>
   );
 }

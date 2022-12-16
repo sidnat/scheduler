@@ -1,10 +1,8 @@
 import React from "react";
 import DayList from "./DayList";
-import "components/Appointment";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../helpers/selectors";
-
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
 export default function Application() {
