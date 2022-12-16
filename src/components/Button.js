@@ -8,7 +8,7 @@ export default function Button(props) {
     danger,
     onClick,
     disabled
-  } = props
+  } = props;
 
   const buttonClass = classNames("button", {
     "button--confirm": confirm,

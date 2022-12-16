@@ -22,7 +22,7 @@ describe("Form", () => {
     expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
   });
 
-  //    Expected the element to have value: Lydia Miller-Jones
+  // Test Failed: Expected the element to have value: Lydia Miller-Jones
   it("renders without initial student name", () => {
     const { getByTestId } = render(<Form interviewers={interviewers} student={"Lydia Miller-Jones"} />);
     expect(getByTestId("student-name-input")).toHaveValue("Lydia Miller-Jones");
@@ -39,7 +39,7 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
 
-  //    Unable to find an element with the text: /Please select an interviewer/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+  // Test Failed: Unable to find an element with the text: /Please select an interviewer/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
   it("validates that the interviewer cannot be null", () => {
     const onSave = jest.fn();
     const { getByText } = render(<Form interviewers={interviewers} onSave={onSave} student={"Lydia Miller-Jones"} />);
