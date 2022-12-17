@@ -13,23 +13,31 @@ Required
 - node
 - npm
 
-1. Clone the repository
+1. Fork and Clone the scheduler API. follow the steps in the README to set up a local database.
+```sh
+https://github.com/sidnat/scheduler-api
+```
+2. Clone the repository
 ```sh
 git clone git@github.com:sidnat/scheduler.git
 ```
-2. Install dependencies with 
+3. Install dependencies with 
 ```sh
 npm install`.
 ```
-3. Run Webpack Development Server, this will start the website (http://localhost:8000/)
+4. Run Webpack Development Server, this will start the website (http://localhost:8000/)
 ```sh
 npm start
 ```
-4. Running Jest Test Framework
+5. Running Jest Testing Framework
 ```sh
 npm test
 ```
-5. Running Storybook Visual Testbed
+6. Run Cypress Testing Framework
+```sh
+npm run cypress
+```
+7. Running Storybook Visual Testbed
 ```sh
 npm run storybook
 ```
