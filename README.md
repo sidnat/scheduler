@@ -1,7 +1,5 @@
 # Interview Scheduler
 
----
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -11,7 +9,7 @@ A dynamic single page website where users can create, edit, and delete scheduled
 
 ## Setup
 
-###Required
+Required
 - node
 - npm
 
